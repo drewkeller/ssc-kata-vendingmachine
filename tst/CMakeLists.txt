@@ -2,7 +2,6 @@ set(TEST_PROJECT ${CMAKE_PROJECT_NAME}_Test)
 set(PROJECT_LIB ${CMAKE_PROJECT_NAME}_lib)
 
 set(SOURCES 
-    Setup_test.cpp
     VendingMachineTest.cpp
     )
 
