@@ -172,21 +172,18 @@ void VendingMachine::ReturnMoney()
     InsertedAmount = 0;
 }
 
-bool VendingMachine::CanMakeChange() {
-    // 50 cents, always true
+bool VendingMachine::CanMakeChange() {    
+    // Chips: 50 cents
     // 55: 1 quarter, 3 dimes - need 1 nickel
-    bool canMakeChangeForChips = ChangeBank.Contains(CoinValue::Nickel, 1);
 
-    // 65 cents
+    // Candy: 65 cents
     // 75: 3 quarters - need 1 dime
     // 70: 7 dimes - need 1 nickel
-    bool canMakeChangeForCandy = ChangeBank.Contains(CoinValue::Dime, 1) && ChangeBank.Contains(CoinValue::Nickel, 1);
 
-    // 100 cents
+    // Soda: 100 cents
     // 105: 1 quarter, 8 dimes - need 1 nickel
     // 105: 3 quarters, 3 dimes - need 1 nickel
-    bool canMakeChangeForSoda = ChangeBank.Contains(CoinValue::Nickel, 1);
 
-    return canMakeChangeForChips && canMakeChangeForCandy && canMakeChangeForSoda;
+    // The various conditions resolve down to this.
+    return ChangeBank.CanMakeChange(5) && ChangeBank.CanMakeChange(10);
 }
-
