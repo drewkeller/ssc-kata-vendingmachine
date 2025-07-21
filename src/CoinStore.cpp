@@ -21,6 +21,7 @@ void CoinStore::Fill(int quarters, int dimes, int nickels)
     Coins[CoinValue::Quarter] += quarters;
     Coins[CoinValue::Dime] += dimes;
     Coins[CoinValue::Nickel] += nickels;
+    CalculateValue();
 }
 
 void CoinStore::Add(CoinValue coinValue, int qty)
@@ -40,6 +41,7 @@ void CoinStore::Clear()
     Coins[CoinValue::Quarter] = 0;
     Coins[CoinValue::Dime] = 0;
     Coins[CoinValue::Nickel] = 0;
+    Value = 0;
 }
 
 bool CoinStore::Contains(CoinValue coinValue, int qty)
