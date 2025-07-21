@@ -1,5 +1,9 @@
 set(SOURCES
     main.cpp
+    Coin.cpp
+    Coin.h
+    CoinStore.cpp
+    CoinStore.h
     VendingMachine.cpp
     VendingMachine.h
     )

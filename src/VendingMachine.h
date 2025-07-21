@@ -1,5 +1,6 @@
 #pragma once
 
+#include "CoinStore.h"
 #include <algorithm>
 #include <string>
 #include <list>
@@ -14,46 +15,6 @@ namespace std {
 }
 
 namespace VendingMachines {
-
-    enum class CoinSize {
-        Penny, Nickel, Dime, Quarter
-    };
-
-    enum class CoinWeight {
-        Penny, Nickel, Dime, Quarter
-    };
-
-    enum class CoinValue {
-        Invalid = 0,
-        Penny = 1,
-        Nickel = 5,
-        Dime = 10,
-        Quarter = 25
-    };
-
-    class Coin {
-    public:
-        Coin(CoinSize, CoinWeight);
-        CoinWeight Weight;
-        CoinSize Size;
-        CoinValue Value;
-    };
-
-    class CoinStore {
-    public:
-        std::map<CoinValue, int> Coins;
-        int Value;
-
-        CoinStore(void);
-        void CalculateValue();
-        void Fill(int quarters, int dimes, int nickels);
-        void Add(CoinValue, int);
-        void Remove(CoinValue, int);
-        void Clear();
-        bool Contains(CoinValue, int);
-        bool CanMakeChange(int amountOfChange);
-        void MakeChange(int amountOfChange);
-    };
 
     enum class StockedItemType {
         Invalid, Cola, Chips, Candy
