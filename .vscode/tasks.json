@@ -1,0 +1,106 @@
+{
+    "tasks": [
+        {
+            "label": "Run VendingMachineTest",
+            "command": "${workspaceFolder}/VendingMachineTest.exe",
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "test",
+        },
+
+        {
+            "type": "cppbuild",
+            "label": "Build VendingMachineTest",
+            "command": "g++.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                // required for GoogleTest
+                "-std=c++17",
+                "-pthread",
+                // include GoogleTest
+                "-I${workspaceFolder}/lib/googletest/googletest/include",
+                "-I${workspaceFolder}/lib/googletest/googlemock/include",
+                "-L${workspaceFolder}/lib/googletest/bin",
+                // linking GoogleTest
+                "-lgtest", "-lgtest_main", "-lgmock", "-lgmock_main",               
+                "-o", "VendingMachineTest.exe",
+                "${workspaceFolder}\\lib\\googletest\\bin\\libgtest.a",
+                "./lib/googletest/bin/libgtest_main.a",
+                "./lib/googletest/bin/libgmock.a",
+                "./lib/googletest/bin/libgmock_main.a",
+                // VendingMachine sources
+                "-I${workspaceFolder}/src",
+                "./src/Coin.cpp",
+                "./src/CoinStore.cpp",
+                "./src/VendingMachine.cpp",
+                "./tst/CoinStoreTest.cpp",
+                "${workspaceFolder}\\tst\\VendingMachineTest.cpp"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "compiler: C:/Strawberry/c/bin/g++.exe"
+        },
+
+        {
+            "type": "cppbuild",
+            "label": "Build VendingMachine",
+            "command": "g++.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-std=c++17",
+                "-pthread",
+                "-g",
+                "-o", "${workspaceFolder}/VendingMachine.exe",
+                "-I./src",
+                "./src/main.cpp",
+                "./src/Coin.cpp",
+                "./src/CoinStore.cpp",
+                "./src/VendingMachine.cpp",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "compiler: C:/Strawberry/c/bin/g++.exe"
+        },
+
+        {
+            "type": "cppbuild",
+            "label": "Build GoogleTest",
+            "command": "g++.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-std=c++17",
+                "-Igoogletest",
+                "-Igoogletest/include",
+                "-Igooglemock",
+                "-Igooglemock/include",
+                "-c", 
+                "googletest/src/gtest-all.cc",
+                "googletest/src/gtest_main.cc",
+                "googlemock/src/gmock-all.cc",
+                "googlemock/src/gmock_main.cc",
+                "-pthread"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/lib/googletest"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "compiler: C:/Strawberry/c/bin/g++.exe"
+        }
+    ],
+    "version": "2.0.0"
+}
