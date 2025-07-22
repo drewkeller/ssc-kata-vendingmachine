@@ -2,7 +2,7 @@
 
 This project is an implementation of the Vending Machine kata found here: https://github.com/ardalis/kata-catalog/blob/main/katas/VendingMachine.md
 
-# GoogleTest Setup
+# GoogleTest Setup (with CMake)
 
 Since the kata is focused on TDD, I set up GoogleTest in Visual Studio Code using the following instructions. These are based on what Google's AI suggested, along with a few of my own notes and solutions that I came up with along the way.
 
@@ -91,3 +91,29 @@ This clones Google Test as a submodule in a subfolder of your project (/lib/goog
 
 4. Run or Debug tests: You can use the Testing view to run or debug all tests or specific tests.
 
+# GoogleTest Setup (without CMake)
+
+What worked for me was to create a configuration based on this StackOverflow post (titled "The hard way: manually build everything from scratch, using g++ directly without a build system"): https://stackoverflow.com/questions/72108314/how-do-i-build-and-use-googletest-gtest-and-googlemock-gmock-with-gcc-g-or
+
+1. Create a configuration to build GoogleTest (see "Build GoogleTest" task in tasks.json)
+
+2. Create the static libraries (I did this manally on the VSCode terminal, but I imagine a task could be created for it, also)
+```
+cd lib/googletest
+ar -rv libgtest.a gtest-all.o
+ar -rv libgtest_main.a gtest_main.o
+ar -rv libgmock.a gmock-all.o
+ar -rv libgmock_main.a gmock_main.o
+mkdir lib
+mv {*.a,*.o} lib
+```
+3
+.695
+3. Update the project's build task so that it includes gtest sources and links to the static libraries created in the step above. See "Build VendingMachineTest" task in tasks.json".
+
+4. Add a debugger launch task. 
+    1. Open a .cpp file.
+    2. Select the debug view on the left hand vertical pane (the icon has a "bug" on it).
+    3. Click on the option to create a launch item. Select the gdb option. This will create the launch.json file or add a configuration item if it already exists.
+    4. Edit the launch configuration so it has the actual path to your gdb and executable.
+    5. In the launch configuration, add a "preLaunchTask" item that calls out the task that builds the project, e.g "Build VendingMachine".
