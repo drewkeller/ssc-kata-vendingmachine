@@ -1,4 +1,5 @@
 #include "VendingMachine.h"
+#include <iostream>
 
 using namespace VendingMachines;
 

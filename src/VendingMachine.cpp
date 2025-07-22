@@ -1,6 +1,8 @@
 #include "VendingMachine.h"
 #include <iostream>
-#include <format>
+//#include <format>
+#include <sstream>
+#include <iomanip>
 
 using namespace std;
 using namespace VendingMachines;
@@ -52,10 +54,11 @@ string VendingMachine::GetDisplay()
     constexpr char INSERT_COIN_TEXT[] = "INSERT COIN";
     constexpr char EXACT_CHANGE_TEXT[] = "EXACT CHANGE ONLY";
     constexpr char SOLD_OUT_TEXT[] = "SOLD OUT";
-    constexpr string_view PRICE_FORMATTER = "PRICE ${:0.2f}";
-    constexpr string_view AMOUNT_FORMATTER = "${:0.2f}";
+    //constexpr string_view PRICE_FORMATTER = "PRICE ${:0.2f}";
+    //constexpr string_view AMOUNT_FORMATTER = "${:0.2f}";
 
     string message = "";
+    stringstream ss;
     bool canMakeChange = CanMakeChange();
 
     if(MessageType == MessageType::ThankYou)
@@ -70,7 +73,9 @@ string VendingMachine::GetDisplay()
         // This time we show the price but next time the display is checked, 
         // it should show the current amount in the machine
         int costCents = GetCostOf(RequestedItem);
-        message = std::format(PRICE_FORMATTER, costCents / 100.0);
+        ss << "PRICE $" << fixed << setprecision(2) << (costCents / 100.0);
+        message = ss.str();
+        //message = std::format(PRICE_FORMATTER, costCents / 100.0);
         MessageType = MessageType::Amount;
     }
     else if (MessageType == MessageType::Amount) {
@@ -78,7 +83,9 @@ string VendingMachine::GetDisplay()
             MessageType = MessageType::InsertCoin;
             message = canMakeChange ? INSERT_COIN_TEXT : EXACT_CHANGE_TEXT;
         } else {
-            message = std::format(AMOUNT_FORMATTER, InsertedAmount / 100.0);
+            ss << "$" << fixed << setprecision(2) << (InsertedAmount / 100.0);
+            message = ss.str();
+            //message = std::format(AMOUNT_FORMATTER, InsertedAmount / 100.0);
         }
     }
     else if (MessageType == MessageType::SoldOut) {
