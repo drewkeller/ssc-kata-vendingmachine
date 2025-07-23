@@ -1,6 +1,7 @@
 build/
-.vscode/
+#.vscode/
 lib/googletest/
+!lib/googletest/bin/
 *.code-workspace
 *.exe
 *.log
