@@ -107,8 +107,7 @@ ar -rv libgmock_main.a gmock_main.o
 mkdir lib
 mv {*.a,*.o} lib
 ```
-3
-.695
+
 3. Update the project's build task so that it includes gtest sources and links to the static libraries created in the step above. See "Build VendingMachineTest" task in tasks.json".
 
 4. Add a debugger launch task. 
@@ -117,3 +116,5 @@ mv {*.a,*.o} lib
     3. Click on the option to create a launch item. Select the gdb option. This will create the launch.json file or add a configuration item if it already exists.
     4. Edit the launch configuration so it has the actual path to your gdb and executable.
     5. In the launch configuration, add a "preLaunchTask" item that calls out the task that builds the project, e.g "Build VendingMachine".
+
+5. Add the "C++ TestMate" extension. This allows the use of VS Code's native "Testing" view (in the left hand vertical pane, click the icon with the beaker). In the Testing view, you can easily run or debug all tests or individial tests. If you don't see any tests there at first, click the Refresh button.
